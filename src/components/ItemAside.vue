@@ -43,20 +43,18 @@
               return '';
         }
       },
-        clickevent (row, column, event) {
+        clickevent (row) {
             this.$notify({
             title: "显示",
             type: "success",
             dangerouslyUseHTMLString: true,
             message:
-              "row:" +
+              "题目: " +
               row.no +
-              "<br>column:" +
-              column,
+              "<br>位置: " +
+              row.num,
             duration: 5000
           });
-          console.log(event)
-          console.log(row)
         },
     },
     data() {
