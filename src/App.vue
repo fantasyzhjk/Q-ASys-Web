@@ -2,29 +2,32 @@
   <div id="app">
     <el-container>
       <el-header>
-        <div id="nav">
-          <router-link to="/">Home</router-link>|
-          <router-link to="/about">About</router-link>|
-          <router-link to="/login">login</router-link>|
-          <router-link to="/answerpage">answerPage</router-link>|
-        </div>
+        <Navbar />
       </el-header>
-      <router-view />
+      <router-view class="page" />
     </el-container>
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import Navbar from "@/components/navbar.vue";
+
+export default {
+  components: {
+    Navbar
+  }
+};
+</script>
+
 
 <style lang="scss">
 body {
   margin: 0%;
 }
 
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
+router-view {
+  height: calc(100vh-120px);
 }
 
 #app {
@@ -35,14 +38,7 @@ body {
   color: #2c3e50;
 }
 
-#nav {
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.el-header {
+  border-bottom: solid 1px #e6e6e6;
 }
 </style>
