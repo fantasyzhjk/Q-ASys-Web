@@ -3,20 +3,20 @@
     <el-container>
       <el-aside width="200px">
         <el-scrollbar style="height:100%">
-          <Aside v-bind:num="ANum" />
+          <Aside v-bind:totalNum="TotalNum" />
         </el-scrollbar>
       </el-aside>
       <el-main>
         <el-scrollbar style="height:100%">
           <Item
             v-bind:topic="Topic"
-            v-bind:num="Num"
             v-bind:type="Type"
             v-bind:answerA="AnswerA"
             v-bind:answerB="AnswerB"
             v-bind:answerC="AnswerC"
             v-bind:answerD="AnswerD"
             v-bind:comp="Comp"
+            v-bind:totalNum="TotalNum"
           />
         </el-scrollbar>
       </el-main>
@@ -29,21 +29,31 @@ import Item from "@/components/Item.vue";
 import Aside from "@/components/ItemAside.vue";
 
 export default {
+  metaInfo: {
+    title: "答题 | 在线答题系统",
+    meta: [
+      { charset: "utf-8" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+      }
+    ]
+  },
   components: {
     Item,
     Aside
   },
   data() {
     return {
-      Topic: "",
-      Num: 250,
-      Type: 2,
+      Topic: "这是题目",
+      Type: 1,
       AnswerA: "答案A",
       AnswerB: "答案B",
       AnswerC: "答案C",
       AnswerD: "答案D",
       Comp: true,
-      ANum: 100
+      TotalNum: 100
     };
   },
   methods: {}
@@ -60,10 +70,12 @@ export default {
 }
 
 .el-main {
+  background-color: #fafafa;
   color: #333;
-  text-align: center;
-  line-height: 50px;
-  padding: 0px;
+  // text-align: left;
+  // line-height: 50px;
+  // padding: 0px;
+  max-height: calc(100vh - 60px);
 }
 
 body > .el-container {

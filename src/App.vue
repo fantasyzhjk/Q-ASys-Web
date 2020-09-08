@@ -26,8 +26,8 @@ body {
   margin: 0%;
 }
 
-router-view {
-  height: calc(100vh-120px);
+.page {
+  max-height: calc(100vh - 60px);
 }
 
 #app {

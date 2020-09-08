@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your 吴优.js App" />
+    <el-scrollbar style="height:100%">
+      <img alt="Vue logo" src="../assets/logo.png" />
+      <HelloWorld msg="Welcome to Your 吴优.js App" />
+    </el-scrollbar>
   </div>
 </template>
 
@@ -10,9 +12,26 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
+  metaInfo: {
+    title: "在线答题系统",
+    meta: [
+      { charset: "utf-8" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+      }
+    ]
+  },
   name: "Home",
   components: {
     HelloWorld
   }
 };
 </script>
+
+<style lang="scss">
+.home {
+  max-height: 100%;
+}
+</style>

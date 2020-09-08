@@ -2,9 +2,10 @@
   <div id="Aside">
     <el-table
       :data="tableData"
-      style="width: 100%;max-height:100%"
-      :row-class-name="tableRowClassName"
-      @row-click="clickevent"
+      style="width: 100%;max-height: 100%;"
+      border
+      highlight-current-row
+      @current-change="handleCurrentChange"
     >
       <el-table-column prop="no" />
 
@@ -22,40 +23,34 @@
 <script>
 export default {
   props: {
-    num: Number
+    totalNum: Number
   },
   mounted() {
     // console.log(this.num)
     var str = [];
-    for (let i = 0; i < this.num; i++) {
-      str[i] = { no: "第 " + (i + 1) + " 题", num: i };
+    for (let i = 0; i < this.totalNum; i++) {
+      str[i] = { no: "第 " + (i + 1) + " 题", num: i + 1 };
       //   {"no": "第" + (i+1) + "题"},
     }
     this.tableData = str;
     console.log(this.tableData);
   },
   methods: {
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex == this.currentDataIndex) {
-        return "warning-row";
-      } else {
-        return "";
-      }
-    },
-    clickevent(row) {
-      this.$notify({
+    handleCurrentChange(val) {
+      this.currentRow = val;
+      this.$message({
         title: "显示",
         type: "success",
+        showClose: true,
         dangerouslyUseHTMLString: true,
-        message: "题目: " + row.no + "<br>位置: " + row.num,
-        duration: 1000
+        message: "题目: " + val.no + "<br>题号: " + val.num,
+        duration: 500
       });
-      this.currentDataIndex = row.num;
+      this.$store.state.currentNum = val.num;
     }
   },
   data() {
     return {
-      currentDataIndex: 0,
       tableData: []
     };
   }
@@ -63,17 +58,6 @@ export default {
 </script>
 
 <style lang="scss">
-#Atabs {
-  width: 15vh;
-}
-
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
 .has-gutter {
   display: none;
 }
