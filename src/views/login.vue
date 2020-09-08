@@ -35,9 +35,17 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+
+import axios from 'axios';
 
 export default {
+    metaInfo: {
+      title: '登录 | 在线答题系统',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' }
+      ]
+    },
   data() {
     var validatePassword = (rule, value, callback) => {
       if (value === "") {
@@ -121,7 +129,7 @@ export default {
       loginForm.append("password", this.ruleForm.password);
       const loading = this.$loading({
         lock: true,
-        text: "登陆中"
+        text: "登录中"
       });
       setTimeout(() => {
         loading.close();
