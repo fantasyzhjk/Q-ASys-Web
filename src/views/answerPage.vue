@@ -1,17 +1,17 @@
 <template>
   <div id="answerPage">
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="200px"><Aside v-bind:num="ANum" /></el-aside>
       <el-main>
         <Item
           v-bind:topic="Topic"
-          num="250"
-          type="1"
-          answerA="答案A"
-          answerB="答案B"
-          answerC="答案C"
-          answerD="答案D"
-          comp="1"
+          v-bind:num="Num"
+          v-bind:type="Type"
+          v-bind:answerA="AnswerA"
+          v-bind:answerB="AnswerB"
+          v-bind:answerC="AnswerC"
+          v-bind:answerD="AnswerD"
+          v-bind:comp="Comp"
         />
         <!-- <Login /> -->
       </el-main>
@@ -21,14 +21,25 @@
 
 <script>
 import Item from "@/components/Item.vue";
+import Aside from "@/components/ItemAside.vue";
 
 export default {
   components: {
-    Item
+    Item,
+    Aside
   },
   data() {
     return {
-      Topic: "问题1"
+      Topic: "问题1",
+      Num: 250,
+      Type: 2,
+      AnswerA: "答案A",
+      AnswerB: "答案B",
+      AnswerC: "答案C",
+      AnswerD: "答案D",
+      Comp: true,
+      ANum: 100
+
     };
   },
   methods: {}
@@ -37,10 +48,10 @@ export default {
 
 <style lang="scss">
 .el-aside {
-  background-color: #d3dce6;
   color: #333;
   text-align: center;
   line-height: 200px;
+  max-height: calc(100vh - 60px);
 }
 
 .el-main {
@@ -61,5 +72,9 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+
+#answerPage {
+  min-height: 100%;
 }
 </style>

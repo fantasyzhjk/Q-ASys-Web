@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="mainitem">
     <p>第{{ num }}题 {{ topic }}</p>
     <el-radio-group v-model="radio">
       <div v-if="type == 1">
@@ -55,4 +55,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+#mainitem {
+  height: calc(100vh - 120px);
+}
+</style>
