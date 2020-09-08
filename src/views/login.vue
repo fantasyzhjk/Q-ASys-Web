@@ -3,7 +3,7 @@
     <div class="el-col el-col-24 el-col-xs-22 el-col-sm-8 el-col-md-6">
       <div class="el-card box-card is-always-shadow">
         <div class="el-card__header">
-          <span>宁要登录</span>
+          <span>在线答题系统</span>
         </div>
         <div class="el-card__body">
           <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
@@ -132,7 +132,7 @@ export default {
         });
       }, 10000);
       axios
-        .post("url", loginForm)
+        .post("url", loginForm) //need to change url
         .then(resp => {
           if (resp.status === 200) {
             console.log(resp);
