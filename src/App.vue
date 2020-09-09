@@ -40,18 +40,18 @@ body {
   color: #2c3e50;
 }
 
-.el-header {
+.el-header,
+el-footer {
   border-bottom: solid 1px #e6e6e6;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  // transition: opacity 0.1s;
   transition: all 0.1s;
 }
 .fade-enter,
 .fade-leave-active {
-  transform: translateX(10px);
+  // transform: translateX(10px);
   opacity: 25%;
 }
 </style>

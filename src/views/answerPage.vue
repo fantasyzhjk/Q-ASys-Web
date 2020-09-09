@@ -7,17 +7,15 @@
         </el-scrollbar>
       </el-aside>
       <el-main>
-        <el-scrollbar style="height:100%">
-          <Item
-            v-bind:topic="Topic"
-            v-bind:type="Type"
-            v-bind:answerA="AnswerA"
-            v-bind:answerB="AnswerB"
-            v-bind:answerC="AnswerC"
-            v-bind:answerD="AnswerD"
-            v-bind:totalNum="TotalNum"
-          />
-        </el-scrollbar>
+        <Item
+          v-bind:topic="Topic"
+          v-bind:type="Type"
+          v-bind:answerA="AnswerA"
+          v-bind:answerB="AnswerB"
+          v-bind:answerC="AnswerC"
+          v-bind:answerD="AnswerD"
+          v-bind:totalNum="TotalNum"
+        />
       </el-main>
     </el-container>
   </div>
@@ -49,7 +47,6 @@ export default {
       this.change(newVal - 1);
     }
   },
-
   mounted() {
     var str = [];
     for (let i = 0; i < this.TotalNum; i++) {
@@ -57,7 +54,7 @@ export default {
     }
     this.$store.state.opt = str;
     // this.load ();
-    this.change(0);
+    this.change(this.$store.state.currentNum - 1);
   },
   components: {
     Item,
@@ -76,7 +73,6 @@ export default {
     };
   },
   methods: {
-    //
     change(newVal) {
       this.Topic = this.$store.state.questions[newVal].Topic;
       this.Type = this.$store.state.questions[newVal].Type;
@@ -100,7 +96,9 @@ export default {
   border-right: solid 1px #e6e6e6;
   min-height: calc(100vh - 60px);
 }
-
+.el-scrollbar > div:nth-child(1) {
+  overflow-x: hidden;
+}
 .el-main {
   background-color: #fafafa;
   color: #333;
@@ -125,9 +123,5 @@ body > .el-container {
 
 #answerPage {
   min-height: 100%;
-}
-
-.el-scrollbar__wrap {
-  overflow-x: hidden;
 }
 </style>
