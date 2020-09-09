@@ -4,7 +4,9 @@
       <el-header>
         <Navbar />
       </el-header>
-      <router-view class="page" />
+      <transition name="fade" mode="out-in">
+        <router-view class="page" />
+      </transition>
     </el-container>
   </div>
 </template>
@@ -40,5 +42,16 @@ body {
 
 .el-header {
   border-bottom: solid 1px #e6e6e6;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  // transition: opacity 0.1s;
+  transition: all 0.1s;
+}
+.fade-enter,
+.fade-leave-active {
+  transform: translateX(10px);
+  opacity: 25%;
 }
 </style>

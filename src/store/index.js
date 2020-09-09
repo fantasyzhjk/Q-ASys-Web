@@ -8,7 +8,6 @@ Vue.use(Meta);
 const state = {
   user: "",
   token: "",
-  currentPage: "/",
   currentNum: 1,
   // radio
   opt: [],

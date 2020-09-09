@@ -1,14 +1,16 @@
 <template>
   <div id="item">
-    <div style="height: 50px;">
-      <p style="float: right;">第 {{ this.$store.state.currentNum }}/{{ totalNum }} 题</p>
-      <p style="float: left;">请选出正确答案</p>
-    </div>
-    <hr />
-    <p>{{topic}}</p>
-    <div style="height: 50px;" class="column-list">
-      <el-radio-group v-model="radio">
-        <table>
+    <table style="width:100%;">
+      <tr>
+        <p style="float: right;">第 {{ this.$store.state.currentNum }}/{{ totalNum }} 题</p>
+        <p style="float: left;">请选出正确答案</p>
+      </tr>
+      <tr>
+        <hr />
+        <p>{{topic}}</p>
+      </tr>
+      <div style="height: 50px;" class="column-list">
+        <el-radio-group v-model="radio">
           <div v-if="type == 1">
             <tr>
               <el-radio :label="1" border>A. {{ answerA }}</el-radio>
@@ -31,22 +33,20 @@
               <el-radio :label="2" border>否</el-radio>
             </tr>
           </div>
-        </table>
-      </el-radio-group>
-      <hr />
-      <div style="height: 50px;">
+        </el-radio-group>
+        <hr />
         <el-progress
-          style="width: 35%;float: left;padding: 10px;"
-          :percentage="((this.$store.state.currentNum-1)*100)/this.totalNum"
+          style="width: 40%;float: left;padding: 10px;"
+          :percentage="((this.$store.state.currentNum)*100)/this.totalNum"
         ></el-progress>
         <div style="float: right;" v-if="this.$store.state.currentNum == this.totalNum">
-          <el-button @click="getradio">提交</el-button>
+          <el-button @click="getradio" :disabled="unComp" :loading="false" icon="el-icon-check">提交</el-button>
         </div>
         <div style="float: right;" v-if="this.$store.state.currentNum < this.totalNum">
-          <el-button @click="nextradio">下一题</el-button>
+          <el-button @click="nextradio" :disabled="unComp">下一题</el-button>
         </div>
       </div>
-    </div>
+    </table>
   </div>
 </template>
 
@@ -65,22 +65,27 @@ export default {
   },
   data() {
     return {
-      radio: 0
+      radio: 0,
+      unComp: true
     };
   },
   watch: {
-    radio: function (newRadio, oldRadio) {
-      console.log("radio changed " + oldRadio + " " + newRadio);
+    radio: function(newRadio) {
       this.$store.state.opt[this.$store.state.currentNum - 1] = newRadio;
+      if (this.$store.state.opt[this.$store.state.currentNum - 1] != 0) {
+        this.unComp = false;
+      }
     },
-    isFollow (newVal, oldVal) {
-      console.log(newVal + " " + oldVal);
+    isFollow() {
       this.radio = this.$store.state.opt[this.$store.state.currentNum - 1];
+      if (this.$store.state.opt[this.$store.state.currentNum - 1] == 0) {
+        this.unComp = true;
+      }
     }
   },
   computed: {
-    isFollow () {
-    return this.$store.state.currentNum;
+    isFollow() {
+      return this.$store.state.currentNum;
     }
   },
   methods: {
@@ -95,14 +100,11 @@ export default {
       });
     },
     nextradio() {
-      this.$message({
-        title: "radio",
-        type: "success",
-        message: "radio type = " + this.radio,
-        duration: 500
-      });
       this.$store.state.currentNum++;
-    },
+      if (this.$store.state.opt[this.$store.state.currentNum] == 0) {
+        this.unComp = true;
+      }
+    }
   }
 };
 </script>

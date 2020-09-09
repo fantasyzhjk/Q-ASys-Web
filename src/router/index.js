@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home.vue";
+import answerPage from "@/views/answerPage.vue";
+import Login from "@/views/login.vue";
 
 Vue.use(VueRouter);
 
@@ -13,12 +15,12 @@ const routes = [
   {
     path: "/answerpage",
     name: "answerPage",
-    component: () => import("../views/answerPage.vue")
+    component: answerPage
   },
   {
     path: "/login",
-    name: "Login",
-    component: () => import("../views/login.vue")
+    name: "login",
+    component: Login
   }
 ];
 

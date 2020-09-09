@@ -3,7 +3,7 @@
     <el-table
       :data="tableData"
       style="width: 100%;max-height: 100%;"
-      highlight-current-row
+      :row-class-name="tableRowClassName"
       @current-change="handleCurrentChange"
     >
       <el-table-column prop="no" />
@@ -32,9 +32,16 @@ export default {
       //   {"no": "第" + (i+1) + "题"},
     }
     this.tableData = str;
-    console.log(this.tableData);
   },
   methods: {
+    tableRowClassName({ row, rowIndex }) {
+      if (this.$store.state.opt[rowIndex] != 0) {
+        return "success-row";
+      } else if (row.num == this.$store.state.currentNum) {
+        return "warning-row";
+      }
+      return "";
+    },
     handleCurrentChange(val) {
       this.currentRow = val;
       this.$message({
@@ -46,7 +53,6 @@ export default {
         duration: 500
       });
       this.$store.state.currentNum = val.num;
-
     }
   },
   data() {
@@ -60,5 +66,14 @@ export default {
 <style lang="scss">
 .has-gutter {
   display: none;
+}
+.el-table .warning-row {
+  background: oldlace;
+}
+.el-table .success-row {
+  background: #f0f9eb;
+}
+tr.el-table__row:nth-child(n) > td:nth-child(1) > div:nth-child(1) {
+  text-align: center;
 }
 </style>

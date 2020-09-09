@@ -1,7 +1,7 @@
 <template>
   <div id="answerPage">
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="100px">
         <el-scrollbar style="height:100%">
           <Aside v-bind:totalNum="TotalNum" />
         </el-scrollbar>
@@ -45,9 +45,7 @@ export default {
     }
   },
   watch: {
-    isFollow(newVal, oldVal) {
-      console.log(newVal + " " + oldVal);
-      console.log(this.$store.state.questions[newVal - 1].Topic);
+    isFollow(newVal) {
       this.change(newVal - 1);
     }
   },
@@ -67,12 +65,12 @@ export default {
   },
   data() {
     return {
-      Topic: "这是题目",
+      Topic: "加载中",
       Type: 1,
-      AnswerA: "答案A",
-      AnswerB: "答案B",
-      AnswerC: "答案C",
-      AnswerD: "答案D",
+      AnswerA: "加载中",
+      AnswerB: "加载中",
+      AnswerC: "加载中",
+      AnswerD: "加载中",
       // Comp: true,
       TotalNum: 5
     };
