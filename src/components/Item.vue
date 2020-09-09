@@ -37,7 +37,7 @@
       <div style="height: 50px;">
         <el-progress
           style="width: 35%;float: left;padding: 10px;"
-          :percentage="(this.$store.state.currentNum*100)/this.totalNum"
+          :percentage="((this.$store.state.currentNum-1)*100)/this.totalNum"
         ></el-progress>
         <div style="float: right;" v-if="this.$store.state.currentNum == this.totalNum">
           <el-button @click="getradio">提交</el-button>
@@ -60,13 +60,28 @@ export default {
     answerB: String,
     answerC: String,
     answerD: String,
-    comp: Boolean,
+    // comp: Boolean,
     totalNum: Number
   },
   data() {
     return {
       radio: 0
     };
+  },
+  watch: {
+    radio: function (newRadio, oldRadio) {
+      console.log("radio changed " + oldRadio + " " + newRadio);
+      this.$store.state.opt[this.$store.state.currentNum - 1] = newRadio;
+    },
+    isFollow (newVal, oldVal) {
+      console.log(newVal + " " + oldVal);
+      this.radio = this.$store.state.opt[this.$store.state.currentNum - 1];
+    }
+  },
+  computed: {
+    isFollow () {
+    return this.$store.state.currentNum;
+    }
   },
   methods: {
     load() {},
@@ -87,7 +102,7 @@ export default {
         duration: 500
       });
       this.$store.state.currentNum++;
-    }
+    },
   }
 };
 </script>

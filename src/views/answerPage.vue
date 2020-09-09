@@ -15,7 +15,6 @@
             v-bind:answerB="AnswerB"
             v-bind:answerC="AnswerC"
             v-bind:answerD="AnswerD"
-            v-bind:comp="Comp"
             v-bind:totalNum="TotalNum"
           />
         </el-scrollbar>
@@ -40,6 +39,28 @@ export default {
       }
     ]
   },
+  computed: {
+    isFollow() {
+      return this.$store.state.currentNum;
+    }
+  },
+  watch: {
+    isFollow(newVal, oldVal) {
+      console.log(newVal + " " + oldVal);
+      console.log(this.$store.state.questions[newVal - 1].Topic);
+      this.change(newVal - 1);
+    }
+  },
+
+  mounted() {
+    var str = [];
+    for (let i = 0; i < this.TotalNum; i++) {
+      str[i] = 0;
+    }
+    this.$store.state.opt = str;
+    // this.load ();
+    this.change(0);
+  },
   components: {
     Item,
     Aside
@@ -52,11 +73,23 @@ export default {
       AnswerB: "答案B",
       AnswerC: "答案C",
       AnswerD: "答案D",
-      Comp: true,
-      TotalNum: 100
+      // Comp: true,
+      TotalNum: 5
     };
   },
-  methods: {}
+  methods: {
+    //
+    change(newVal) {
+      this.Topic = this.$store.state.questions[newVal].Topic;
+      this.Type = this.$store.state.questions[newVal].Type;
+      if (this.type != 2) {
+        this.AnswerA = this.$store.state.questions[newVal].AnswerA;
+        this.AnswerB = this.$store.state.questions[newVal].AnswerB;
+        this.AnswerC = this.$store.state.questions[newVal].AnswerC;
+        this.AnswerD = this.$store.state.questions[newVal].AnswerD;
+      }
+    }
+  }
 };
 </script>
 
@@ -67,6 +100,7 @@ export default {
   line-height: 200px;
   max-height: calc(100vh - 60px);
   border-right: solid 1px #e6e6e6;
+  min-height: calc(100vh - 60px);
 }
 
 .el-main {

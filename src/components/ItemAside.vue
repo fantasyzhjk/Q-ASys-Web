@@ -3,7 +3,6 @@
     <el-table
       :data="tableData"
       style="width: 100%;max-height: 100%;"
-      border
       highlight-current-row
       @current-change="handleCurrentChange"
     >
@@ -47,6 +46,7 @@ export default {
         duration: 500
       });
       this.$store.state.currentNum = val.num;
+
     }
   },
   data() {
