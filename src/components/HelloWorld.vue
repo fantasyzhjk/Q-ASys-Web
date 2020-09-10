@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <el-button type="primary" @click="login('/login')">登录</el-button>
-    <el-button type="primary" @click="login('/answerPage')">考试</el-button>
+    <el-button type="primary" @click="login('/answerPage')">测试</el-button>
   </div>
 </template>
 

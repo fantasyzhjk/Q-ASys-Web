@@ -5,7 +5,7 @@
         <Navbar />
       </el-header>
       <transition name="fade" mode="out-in">
-        <router-view class="page" />
+        <router-view v-if="isRouterAlive" class="page" />
       </transition>
     </el-container>
   </div>
@@ -16,8 +16,27 @@
 import Navbar from "@/components/navbar.vue";
 
 export default {
+  name: "App",
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
   components: {
     Navbar
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    };
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
+    }
   }
 };
 </script>
@@ -53,5 +72,21 @@ el-footer {
 .fade-leave-active {
   // transform: translateX(10px);
   opacity: 25%;
+}
+@media (max-width: 600px) {
+  .hiddenM {
+    display: none !important;
+  }
+  .hiddenS {
+    display: block;
+  }
+}
+@media (min-width: 600px) {
+  .hiddenM {
+    display: block;
+  }
+  .hiddenS {
+    display: none !important;
+  }
 }
 </style>

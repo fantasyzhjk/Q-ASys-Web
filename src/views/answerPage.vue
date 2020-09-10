@@ -1,11 +1,19 @@
 <template>
   <div id="answerPage">
     <el-container>
-      <el-aside width="150px" class="hidden-sm-and-down">
+      <el-drawer
+        title="我是标题"
+        direction="ltr"
+        :with-header="false"
+        :visible.sync="drawer"
+        size="100"
+      >
+        <!-- <el-aside width="150px" class="hidden-sm-and-down"> -->
         <el-scrollbar style="height:100%">
-          <Aside v-bind:totalNum="TotalNum" />
+          <Aside width="150px" v-bind:totalNum="TotalNum" />
         </el-scrollbar>
-      </el-aside>
+        <!-- </el-aside> -->
+      </el-drawer>
       <el-main>
         <Item
           v-bind:topic="Topic"
@@ -18,6 +26,7 @@
         />
       </el-main>
     </el-container>
+    <el-button id="drawerButton" @click="drawer = true" round icon="el-icon-check">查看题目</el-button>
   </div>
 </template>
 
@@ -34,44 +43,45 @@ export default {
       {
         name: "viewport",
         content:
-          "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no",
-      },
-    ],
+          "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+      }
+    ]
   },
   computed: {
     isFollow() {
       return this.$store.state.currentNum;
-    },
+    }
   },
   watch: {
     isFollow(newVal) {
       this.change(newVal - 1);
-    },
+    }
   },
   mounted() {
     var str = [];
     for (let i = 0; i < this.TotalNum; i++) {
       str[i] = 0;
     }
-    this.$store.state.opt = str;
     if (this.$store.state.token == "") {
       this.$message({
         showClose: true,
         message: "请登入",
-        type: "error",
+        type: "error"
       });
       this.$router.push("/login");
-    } else {
+    } else if (this.$store.state.questions[0].ti == "加载中") {
       this.getTopic(this.TotalNum);
     }
     this.change(this.$store.state.currentNum - 1);
+    this.$store.state.opt = str;
   },
   components: {
     Item,
-    Aside,
+    Aside
   },
   data() {
     return {
+      drawer: false,
       Topic: "加载中",
       Type: 1,
       AnswerA: "加载中",
@@ -79,14 +89,14 @@ export default {
       AnswerC: "加载中",
       AnswerD: "加载中",
       // Comp: true,
-      TotalNum: 5,
+      TotalNum: 5
     };
   },
   methods: {
     getTopic(nodle) {
       const loading = this.$loading({
         lock: true,
-        text: "加载中..",
+        text: "加载中.."
       });
       setTimeout(() => {
         loading.close();
@@ -94,16 +104,17 @@ export default {
           this.$message({
             showClose: true,
             message: "连接失败，请检查您的网络链接",
-            type: "error",
+            type: "error"
           });
         }
       }, 10000);
       axios
-        .get("http://127.0.0.1:3000/api/v1/get/timu/sj?nodle=" + nodle)
-        .then((resp) => {
+        .get(
+          "http://aliyun.fantasyzhjk.top:3000/api/v1/get/timu/sj?nodle=" + nodle
+        )
+        .then(resp => {
           if (resp.status === 200) {
             this.$store.state.questions = resp.data.data;
-            console.log(this.$store.state.questions);
             this.change(this.$store.state.currentNum - 1);
             loading.close();
           } else {
@@ -111,11 +122,11 @@ export default {
             this.$message({
               showClose: true,
               message: "发生未知错误，请联系网站管理员维修",
-              type: "error",
+              type: "error"
             });
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
@@ -128,8 +139,8 @@ export default {
         this.AnswerC = this.$store.state.questions[newVal].c;
         this.AnswerD = this.$store.state.questions[newVal].d;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -156,6 +167,16 @@ export default {
 
 body > .el-container {
   margin-bottom: 40px;
+}
+
+#drawerButton {
+  left: 40px;
+  bottom: 60px;
+  position: fixed;
+}
+
+.el-drawer {
+  width: 100px;
 }
 
 .el-container:nth-child(5) .el-aside,

@@ -2,7 +2,7 @@
   <div class="home">
     <el-scrollbar style="height:100%">
       <img alt="Vue logo" src="../assets/logo.png" />
-      <HelloWorld msg="欢迎来 吴优.js App" />
+      <HelloWorld msg="在线答题系统" />
     </el-scrollbar>
   </div>
 </template>

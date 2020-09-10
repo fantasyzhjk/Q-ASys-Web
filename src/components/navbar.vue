@@ -7,10 +7,10 @@
       mode="horizontal"
       :default-active="activeIndex"
       @select="handleSelect"
-      class="navRight"
+      class="navRight hiddenM"
     >
       <el-menu-item index="/login">登录</el-menu-item>
-      <el-menu-item index="/answerPage">考试系统</el-menu-item>
+      <el-menu-item index="/answerPage">测试系统</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -19,18 +19,18 @@
 export default {
   data() {
     return {
-      activeIndex: "",
+      activeIndex: ""
     };
   },
   watch: {
     isFollow() {
       this.activeIndex = this.$route.path;
-    },
+    }
   },
   computed: {
     isFollow() {
       return this.$route.path;
-    },
+    }
   },
   mounted() {
     this.activeIndex = this.$route.path;
@@ -43,8 +43,8 @@ export default {
     handleSelect(key) {
       this.activeIndex = key;
       this.$router.push(this.activeIndex);
-    },
-  },
+    }
+  }
 };
 </script>
 

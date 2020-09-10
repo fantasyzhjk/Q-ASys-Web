@@ -2,11 +2,11 @@
   <div id="Aside">
     <el-table
       :data="tableData"
-      style="width: 100%;max-height: 100%;"
+      style="width: 100px;max-height: 100%;"
       :row-class-name="tableRowClassName"
       @current-change="handleCurrentChange"
     >
-      <el-table-column prop="no" />
+      <el-table-column width="100" prop="no" />
 
       <!-- <el-table-column>
         <el-button 
@@ -22,7 +22,7 @@
 <script>
 export default {
   props: {
-    totalNum: Number,
+    totalNum: Number
   },
   mounted() {
     // console.log(this.num)
@@ -53,13 +53,13 @@ export default {
       //   duration: 500,
       // });
       this.$store.state.currentNum = val.num;
-    },
+    }
   },
   data() {
     return {
-      tableData: [],
+      tableData: []
     };
-  },
+  }
 };
 </script>
 

@@ -12,7 +12,7 @@ const state = {
   opt: [],
   questions: [
     {
-      Topic: "加载中",
+      ti: "加载中",
       Type: 1,
       AnswerA: "加载中",
       AnswerB: "加载中",

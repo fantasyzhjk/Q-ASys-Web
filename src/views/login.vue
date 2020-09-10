@@ -142,7 +142,7 @@ export default {
         }
       }, 10000);
       axios
-        .post("http://127.0.0.1:3000/api/v1/login", {
+        .post("http://aliyun.fantasyzhjk.top:3000/api/v1/login", {
           username: this.ruleForm.username,
           password: this.ruleForm.password
         })
