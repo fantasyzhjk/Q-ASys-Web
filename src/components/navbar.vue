@@ -10,7 +10,7 @@
       class="navRight"
     >
       <el-menu-item index="/login">登录</el-menu-item>
-      <el-menu-item index="/answerPage">答题界面</el-menu-item>
+      <el-menu-item index="/answerPage">考试系统</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -21,6 +21,16 @@ export default {
     return {
       activeIndex: ""
     };
+  },
+  watch: {
+    isFollow() {
+      this.activeIndex = this.$route.path;
+    }
+  },
+  computed: {
+    isFollow() {
+      return this.$route.path;
+    }
   },
   mounted() {
     this.activeIndex = this.$route.path;

@@ -12,7 +12,7 @@
               <p>{{topic}}</p>
             </tr>
             <div style="height: 50px;" class="column-list">
-              <div v-if="type == 1">
+              <div v-if="type == 0">
                 <p>A. {{ answerA }}</p>
                 <p>B. {{ answerB }}</p>
                 <p>C. {{ answerC }}</p>
@@ -29,13 +29,13 @@
         ></el-progress>
         <div style="float: right;display:flex;">
           <el-radio-group v-model="radio">
-            <div v-if="type == 1">
+            <div v-if="type == 0">
               <el-radio-button :label="1" border>A</el-radio-button>
               <el-radio-button :label="2" border>B</el-radio-button>
               <el-radio-button :label="3" border>C</el-radio-button>
               <el-radio-button :label="4" border>D</el-radio-button>
             </div>
-            <div v-if="type == 2">
+            <div v-if="type == 1">
               <el-radio-button :label="1" border>是</el-radio-button>
               <el-radio-button :label="2" border>否</el-radio-button>
             </div>
@@ -97,9 +97,10 @@ export default {
       this.$message({
         title: "radio",
         type: "success",
-        message: "radio type = " + this.radio,
-        duration: 500
+        message: "已提交" + this.radio,
+        duration: 2000
       });
+      console.log(this.$store.state.opt);
     },
     nextradio() {
       this.$store.state.currentNum++;

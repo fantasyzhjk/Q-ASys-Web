@@ -1,7 +1,7 @@
 <template>
   <div id="answerPage">
     <el-container>
-      <el-aside width="100px">
+      <el-aside width="150px">
         <el-scrollbar style="height:100%">
           <Aside v-bind:totalNum="TotalNum" />
         </el-scrollbar>
@@ -24,6 +24,7 @@
 <script>
 import Item from "@/components/Item.vue";
 import Aside from "@/components/ItemAside.vue";
+import axios from "axios";
 
 export default {
   metaInfo: {
@@ -53,7 +54,16 @@ export default {
       str[i] = 0;
     }
     this.$store.state.opt = str;
-    // this.load ();
+    if (this.$store.state.token == "") {
+      this.$message({
+        showClose: true,
+        message: "请登入",
+        type: "error"
+      });
+      this.$router.push("/login");
+    } else {
+      this.getTopic(this.TotalNum);
+    }
     this.change(this.$store.state.currentNum - 1);
   },
   components: {
@@ -73,14 +83,50 @@ export default {
     };
   },
   methods: {
+    getTopic(nodle) {
+      const loading = this.$loading({
+        lock: true,
+        text: "加载中.."
+      });
+      setTimeout(() => {
+        loading.close();
+        if (this.$store.state.token == "") {
+          this.$message({
+            showClose: true,
+            message: "连接失败，请检查您的网络链接",
+            type: "error"
+          });
+        }
+      }, 10000);
+      axios
+        .get("http://127.0.0.1:3000/api/v1/get/timu/sj?nodle=" + nodle)
+        .then(resp => {
+          if (resp.status === 200) {
+            this.$store.state.questions = resp.data.data;
+            console.log(this.$store.state.questions);
+            this.change(this.$store.state.currentNum - 1);
+            loading.close();
+          } else {
+            loading.close();
+            this.$message({
+              showClose: true,
+              message: "发生未知错误，请联系网站管理员维修",
+              type: "error"
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     change(newVal) {
-      this.Topic = this.$store.state.questions[newVal].Topic;
-      this.Type = this.$store.state.questions[newVal].Type;
-      if (this.type != 2) {
-        this.AnswerA = this.$store.state.questions[newVal].AnswerA;
-        this.AnswerB = this.$store.state.questions[newVal].AnswerB;
-        this.AnswerC = this.$store.state.questions[newVal].AnswerC;
-        this.AnswerD = this.$store.state.questions[newVal].AnswerD;
+      this.Topic = this.$store.state.questions[newVal].ti;
+      this.Type = this.$store.state.questions[newVal].type;
+      if (this.type != 1) {
+        this.AnswerA = this.$store.state.questions[newVal].a;
+        this.AnswerB = this.$store.state.questions[newVal].b;
+        this.AnswerC = this.$store.state.questions[newVal].c;
+        this.AnswerD = this.$store.state.questions[newVal].d;
       }
     }
   }

@@ -127,43 +127,42 @@ export default {
       });
     },
     login() {
-      let loginForm = new FormData();
-      loginForm.append("username", this.ruleForm.username);
-      loginForm.append("password", this.ruleForm.password);
       const loading = this.$loading({
         lock: true,
         text: "登录中"
       });
       setTimeout(() => {
         loading.close();
-        this.$message({
-          showClose: true,
-          message: "登录超时，请检查您的网络链接",
-          type: "error"
-        });
+        if (this.$store.state.token == "") {
+          this.$message({
+            showClose: true,
+            message: "登录超时，请检查您的网络链接",
+            type: "error"
+          });
+        }
       }, 10000);
       axios
-        .post("url", loginForm) //need to change url
+        .post("http://127.0.0.1:3000/api/v1/login", {
+          username: this.ruleForm.username,
+          password: this.ruleForm.password
+        })
         .then(resp => {
-          if (resp.status === 200) {
-            console.log(resp);
-            // window.location = "invite";
+          if (resp.data.status === 200) {
+            this.$router.go(-1);
+            this.$store.state.token = resp.data.token;
+            loading.close();
           } else {
-            this.loginState = "登录失败";
+            loading.close();
+            this.$message({
+              showClose: true,
+              message: resp.data.message,
+              type: "error"
+            });
           }
         })
         .catch(error => {
           console.err(error);
-          this.loginState = "登录失败";
         });
-      if (this.loginState != "登录成功") {
-        loading.close();
-        this.$message({
-          showClose: true,
-          message: this.loginState,
-          type: "error"
-        });
-      }
     }
   }
 };

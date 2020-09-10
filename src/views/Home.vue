@@ -2,7 +2,7 @@
   <div class="home">
     <el-scrollbar style="height:100%">
       <img alt="Vue logo" src="../assets/logo.png" />
-      <HelloWorld msg="Welcome to Your 吴优.js App" />
+      <HelloWorld msg="欢迎来 吴优.js App" />
     </el-scrollbar>
   </div>
 </template>
@@ -33,5 +33,6 @@ export default {
 <style lang="scss">
 .home {
   max-height: 100%;
+  height: calc(100vh - 120px);
 }
 </style>
