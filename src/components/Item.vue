@@ -56,7 +56,7 @@
         </el-scrollbar>
       </el-main>
       <el-footer>
-        <div style="float: right;display:flex;">
+        <div style="right: 40px;bottom: 60px;position: fixed;display:flex;">
           <el-radio-group v-model="radio" class="hiddenM">
             <div v-if="type == 0">
               <el-radio-button :label="1" border>A</el-radio-button>

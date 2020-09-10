@@ -73,7 +73,7 @@ el-footer {
   // transform: translateX(10px);
   opacity: 25%;
 }
-@media (max-width: 600px) {
+@media (max-width: 550px) {
   .hiddenM {
     display: none !important;
   }
@@ -81,7 +81,7 @@ el-footer {
     display: block;
   }
 }
-@media (min-width: 600px) {
+@media (min-width: 550px) {
   .hiddenM {
     display: block;
   }

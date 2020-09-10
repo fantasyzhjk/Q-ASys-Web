@@ -26,14 +26,13 @@
         />
       </el-main>
     </el-container>
-    <el-button id="drawerButton" @click="drawer = true" round icon="el-icon-check">查看题目</el-button>
+    <el-button id="drawerButton" @click="drawer = true" icon="el-icon-check">查看题目</el-button>
   </div>
 </template>
 
 <script>
 import Item from "@/components/Item.vue";
 import Aside from "@/components/ItemAside.vue";
-import axios from "axios";
 
 export default {
   metaInfo: {
@@ -108,7 +107,7 @@ export default {
           });
         }
       }, 10000);
-      axios
+      this.axios
         .get(
           "http://aliyun.fantasyzhjk.top:3000/api/v1/get/timu/sj?nodle=" + nodle
         )
@@ -148,7 +147,6 @@ export default {
 .el-aside {
   color: #333;
   text-align: center;
-  line-height: 200px;
   max-height: calc(100vh - 60px);
   border-right: solid 1px #e6e6e6;
   min-height: calc(100vh - 60px);
@@ -161,7 +159,7 @@ export default {
   color: #333;
   // text-align: left;
   // line-height: 50px;
-  // padding: 0px;
+  // padding: 10px;
   max-height: calc(100vh - 60px);
 }
 

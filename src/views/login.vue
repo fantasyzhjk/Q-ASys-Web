@@ -35,8 +35,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
 export default {
   metaInfo: {
     title: "登录 | 在线答题系统",
@@ -141,7 +139,7 @@ export default {
           });
         }
       }, 10000);
-      axios
+      this.axios
         .post("http://aliyun.fantasyzhjk.top:3000/api/v1/login", {
           username: this.ruleForm.username,
           password: this.ruleForm.password
