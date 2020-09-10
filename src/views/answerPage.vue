@@ -1,7 +1,7 @@
 <template>
   <div id="answerPage">
     <el-container>
-      <el-aside width="150px">
+      <el-aside width="150px" class="hidden-sm-and-down">
         <el-scrollbar style="height:100%">
           <Aside v-bind:totalNum="TotalNum" />
         </el-scrollbar>
@@ -34,19 +34,19 @@ export default {
       {
         name: "viewport",
         content:
-          "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-      }
-    ]
+          "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no",
+      },
+    ],
   },
   computed: {
     isFollow() {
       return this.$store.state.currentNum;
-    }
+    },
   },
   watch: {
     isFollow(newVal) {
       this.change(newVal - 1);
-    }
+    },
   },
   mounted() {
     var str = [];
@@ -58,7 +58,7 @@ export default {
       this.$message({
         showClose: true,
         message: "请登入",
-        type: "error"
+        type: "error",
       });
       this.$router.push("/login");
     } else {
@@ -68,7 +68,7 @@ export default {
   },
   components: {
     Item,
-    Aside
+    Aside,
   },
   data() {
     return {
@@ -79,14 +79,14 @@ export default {
       AnswerC: "加载中",
       AnswerD: "加载中",
       // Comp: true,
-      TotalNum: 5
+      TotalNum: 5,
     };
   },
   methods: {
     getTopic(nodle) {
       const loading = this.$loading({
         lock: true,
-        text: "加载中.."
+        text: "加载中..",
       });
       setTimeout(() => {
         loading.close();
@@ -94,13 +94,13 @@ export default {
           this.$message({
             showClose: true,
             message: "连接失败，请检查您的网络链接",
-            type: "error"
+            type: "error",
           });
         }
       }, 10000);
       axios
         .get("http://127.0.0.1:3000/api/v1/get/timu/sj?nodle=" + nodle)
-        .then(resp => {
+        .then((resp) => {
           if (resp.status === 200) {
             this.$store.state.questions = resp.data.data;
             console.log(this.$store.state.questions);
@@ -111,11 +111,11 @@ export default {
             this.$message({
               showClose: true,
               message: "发生未知错误，请联系网站管理员维修",
-              type: "error"
+              type: "error",
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
@@ -128,8 +128,8 @@ export default {
         this.AnswerC = this.$store.state.questions[newVal].c;
         this.AnswerD = this.$store.state.questions[newVal].d;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

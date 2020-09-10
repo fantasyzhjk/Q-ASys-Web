@@ -22,7 +22,7 @@
 <script>
 export default {
   props: {
-    totalNum: Number
+    totalNum: Number,
   },
   mounted() {
     // console.log(this.num)
@@ -44,27 +44,27 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentRow = val;
-      this.$message({
-        title: "显示",
-        type: "success",
-        showClose: true,
-        dangerouslyUseHTMLString: true,
-        message: "题目: " + val.no + "<br>题号: " + val.num,
-        duration: 500
-      });
+      // this.$message({
+      //   title: "显示",
+      //   type: "success",
+      //   showClose: true,
+      //   dangerouslyUseHTMLString: true,
+      //   message: "题目: " + val.no + "<br>题号: " + val.num,
+      //   duration: 500,
+      // });
       this.$store.state.currentNum = val.num;
-    }
+    },
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss">
-.has-gutter {
+.el-table__header-wrapper {
   display: none;
 }
 .el-table .warning-row {

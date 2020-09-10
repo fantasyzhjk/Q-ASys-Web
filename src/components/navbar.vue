@@ -19,18 +19,18 @@
 export default {
   data() {
     return {
-      activeIndex: ""
+      activeIndex: "",
     };
   },
   watch: {
     isFollow() {
       this.activeIndex = this.$route.path;
-    }
+    },
   },
   computed: {
     isFollow() {
       return this.$route.path;
-    }
+    },
   },
   mounted() {
     this.activeIndex = this.$route.path;
@@ -43,8 +43,8 @@ export default {
     handleSelect(key) {
       this.activeIndex = key;
       this.$router.push(this.activeIndex);
-    }
-  }
+    },
+  },
 };
 </script>
 
