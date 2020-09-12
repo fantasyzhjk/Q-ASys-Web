@@ -59,21 +59,42 @@
         <div style="right: 40px;bottom: 60px;position: fixed;display:flex;">
           <el-radio-group v-model="radio" class="hiddenM">
             <div v-if="type == 0">
-              <el-radio-button :label="1" border>A</el-radio-button>
-              <el-radio-button :label="2" border>B</el-radio-button>
-              <el-radio-button :label="3" border>C</el-radio-button>
-              <el-radio-button :label="4" border>D</el-radio-button>
+              <el-radio-button
+                :class="[(this.isChecked) ? (this.answer == 1) ? 'isCorrect' : 'isIncorrect' : '']"
+                :label="1"
+                border
+              >A</el-radio-button>
+              <el-radio-button
+                :class="[(this.isChecked) ? (this.answer == 2) ? 'isCorrect' : 'isIncorrect' : '']"
+                :label="2"
+                border
+              >B</el-radio-button>
+              <el-radio-button
+                :class="[(this.isChecked) ? (this.answer == 3) ? 'isCorrect' : 'isIncorrect' : '']"
+                :label="3"
+                border
+              >C</el-radio-button>
+              <el-radio-button
+                :class="[(this.isChecked) ? (this.answer == 4) ? 'isCorrect' : 'isIncorrect' : '']"
+                :label="4"
+                border
+              >D</el-radio-button>
             </div>
             <div v-if="type == 1">
               <el-radio-button :label="1" border>是</el-radio-button>
               <el-radio-button :label="2" border>否</el-radio-button>
             </div>
           </el-radio-group>
-          <div v-if="this.$store.state.currentNum == this.totalNum">
-            <el-button @click="getradio" :disabled="unComp" :loading="false" icon="el-icon-check">完成</el-button>
+          <div v-if="isChecked">
+            <div v-if="this.$store.state.currentNum == this.totalNum">
+              <el-button @click="getradio" :loading="false" icon="el-icon-check">完成</el-button>
+            </div>
+            <div v-if="this.$store.state.currentNum < this.totalNum">
+              <el-button @click="nextradio">下一题</el-button>
+            </div>
           </div>
-          <div v-if="this.$store.state.currentNum < this.totalNum">
-            <el-button @click="nextradio" :disabled="unComp">下一题</el-button>
+          <div v-else>
+            <el-button @click="checkradio" :disabled="unComp" icon="el-icon-check">检查</el-button>
           </div>
         </div>
       </el-footer>
@@ -91,13 +112,15 @@ export default {
     answerB: String,
     answerC: String,
     answerD: String,
+    answer: Number,
     // comp: Boolean,
     totalNum: Number
   },
   data() {
     return {
       radio: 0,
-      unComp: true
+      unComp: true,
+      isChecked: false
     };
   },
   watch: {
@@ -115,6 +138,12 @@ export default {
     }
   },
   computed: {
+    // isCorrect: function(ans) {
+    //   return {
+    //     active: this.isActive && !this.error,
+    //     "text-danger": this.error && this.error.type === "fatal"
+    //   };
+    // },
     isFollow() {
       return this.$store.state.currentNum;
     }
@@ -141,6 +170,10 @@ export default {
       if (this.$store.state.opt[this.$store.state.currentNum] == 0) {
         this.unComp = true;
       }
+      this.isChecked = false;
+    },
+    checkradio() {
+      this.isChecked = true;
     }
   }
 };
@@ -163,5 +196,17 @@ export default {
 }
 #item > section:nth-child(1) > main:nth-child(2) {
   height: 100%;
+}
+.isCorrect {
+  background-color: #67c23a;
+}
+.isIncorrect {
+  background-color: #f56c6c;
+}
+// .unComp {
+//   background-color: none !important;
+// }
+.el-radio-button__inner {
+  background: none !important;
 }
 </style>

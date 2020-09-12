@@ -22,6 +22,7 @@
           v-bind:answerB="AnswerB"
           v-bind:answerC="AnswerC"
           v-bind:answerD="AnswerD"
+          v-bind:answer="Answer"
           v-bind:totalNum="TotalNum"
         />
       </el-main>
@@ -87,6 +88,7 @@ export default {
       AnswerB: "加载中",
       AnswerC: "加载中",
       AnswerD: "加载中",
+      Answer: 0,
       // Comp: true,
       TotalNum: 5
     };
@@ -112,7 +114,8 @@ export default {
           "http://aliyun.fantasyzhjk.top:3000/api/v1/get/timu/sj?nodle=" + nodle
         )
         .then(resp => {
-          if (resp.status === 200) {
+          console.log(resp);
+          if (resp.data.status === 200) {
             this.$store.state.questions = resp.data.data;
             this.change(this.$store.state.currentNum - 1);
             loading.close();
@@ -132,6 +135,19 @@ export default {
     change(newVal) {
       this.Topic = this.$store.state.questions[newVal].ti;
       this.Type = this.$store.state.questions[newVal].type;
+      // this.Answer = this.$store.state.questions[newVal].daan;
+      if (this.$store.state.questions[newVal].daan == "A") {
+        this.Answer = 1;
+      }
+      if (this.$store.state.questions[newVal].daan == "B") {
+        this.Answer = 2;
+      }
+      if (this.$store.state.questions[newVal].daan == "C") {
+        this.Answer = 3;
+      }
+      if (this.$store.state.questions[newVal].daan == "D") {
+        this.Answer = 4;
+      }
       if (this.type != 1) {
         this.AnswerA = this.$store.state.questions[newVal].a;
         this.AnswerB = this.$store.state.questions[newVal].b;
